@@ -30,7 +30,7 @@ instance.interceptors.response.use((res) => {
         
         useRouterInstance.push('/login')
     }
-    return res
+    return data
 },(error:Error) => {
     return Promise.reject(error)
 })
