@@ -1,5 +1,7 @@
 <template>
-  <div class="text-red-300">哈哈哈</div>
-  <a-button>按钮</a-button>
+  <router-view></router-view>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+console.log('哈哈哈')
+</script>
