@@ -5,7 +5,6 @@
       <a-col flex="200px">
         <RouterLink to="/">
           <div class="header-left">
-
           </div>
         </RouterLink>
       </a-col>

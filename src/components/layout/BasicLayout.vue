@@ -6,6 +6,7 @@
     <!-- 主要内容区域 -->
     <a-layout-content class="main-content">
       <router-view />
+
     </a-layout-content>
 
     <!-- 底部版权信息 -->

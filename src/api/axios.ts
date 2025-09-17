@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { message } from 'ant-design-vue'
 import useRouterInstance from './userouter'
 
 const instance = axios.create({
@@ -27,7 +28,7 @@ instance.interceptors.response.use((res) => {
     if(data.code === 400100) {
         // token 过期
         // 跳转到登录页
-        
+        message.warn('太着急啦，登录后再来试试吧~')
         useRouterInstance.push('/login')
     }
     return data
