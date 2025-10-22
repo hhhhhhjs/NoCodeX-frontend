@@ -30,6 +30,7 @@
   import { reactive } from 'vue'
   import { useRouter } from 'vue-router'
   import { useLoginUserStore } from '@/store/loginUser'
+  import { userLogin } from '@/api/userController'
   import { message } from 'ant-design-vue'
 
   const formState = reactive({

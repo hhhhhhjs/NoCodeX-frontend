@@ -68,7 +68,7 @@ const menuItems = ref([
     title: '关于我们',
   },
   {
-    key: 'others',
+    key: '/others',
     label: '其他',
     title: '其他',
   },
@@ -76,6 +76,7 @@ const menuItems = ref([
 
 // 处理菜单点击
 const handleMenuClick: MenuProps['onClick'] = (e) => {
+  console.log('看看 key', e.key)
   const key = e.key as string
   selectedKeys.value = [key]
   // 跳转到对应页面
