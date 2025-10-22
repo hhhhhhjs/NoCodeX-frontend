@@ -6,7 +6,6 @@
     <!-- 主要内容区域 -->
     <a-layout-content class="main-content">
       <router-view />
-
     </a-layout-content>
 
     <!-- 底部版权信息 -->
@@ -27,7 +26,6 @@ import GlobalFooter from './GlobalFooter.vue'
 .main-content {
   max-width: 1200px;
   padding: 24px;
-  background: white;
   margin: 16px auto 56px;
 }
 </style>

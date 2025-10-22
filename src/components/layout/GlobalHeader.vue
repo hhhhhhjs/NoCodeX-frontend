@@ -1,10 +1,12 @@
 <template>
-  <a-layout-header class="header">
+  <a-layout-header class="!bg-white !px-6">
     <a-row :wrap="false">
       <!-- 左侧：Logo和标题 -->
       <a-col flex="200px">
         <RouterLink to="/">
-          <div class="header-left">
+          <div class="flex items-center gap-3">
+            <img src="/logo.png" alt="logo" class="w-12 h-12">
+            <h1 class="text-[#1890ff] text-[20px] m-0">NoCodeX</h1>
           </div>
         </RouterLink>
       </a-col>
@@ -20,7 +22,16 @@
       <!-- 右侧：用户操作区域 -->
       <a-col>
         <div class="user-login-status">
-          <a-button type="primary">登录</a-button>
+          <div v-if="loginUserStore.loginUser.id">
+            <a-space>
+              <a-avatar :src="loginUserStore.loginUser.userAvatar" :size="60">
+                {{ loginUserStore.loginUser.userName ?? '神秘的用户' }}
+              </a-avatar>
+            </a-space>
+          </div>
+          <div v-else>
+            <a-button type="primary">登录</a-button>
+          </div>
         </div>
       </a-col>
     </a-row>
@@ -31,6 +42,10 @@
 import { h, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import type { MenuProps } from 'ant-design-vue'
+import { useLoginUserStore } from '@/store/loginUser'
+
+const loginUserStore = useLoginUserStore()
+console.log(loginUserStore)
 
 const router = useRouter()
 // 当前选中菜单
@@ -54,8 +69,8 @@ const menuItems = ref([
   },
   {
     key: 'others',
-    label: h('a', { href: 'https://www.codefather.cn', target: '_blank' }, '编程导航'),
-    title: '编程导航',
+    label: '其他',
+    title: '其他',
   },
 ])
 
@@ -71,28 +86,6 @@ const handleMenuClick: MenuProps['onClick'] = (e) => {
 </script>
 
 <style scoped>
-.header {
-  background: #fff;
-  padding: 0 24px;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo {
-  height: 48px;
-  width: 48px;
-}
-
-.site-title {
-  margin: 0;
-  font-size: 18px;
-  color: #1890ff;
-}
-
 .ant-menu-horizontal {
   border-bottom: none !important;
 }
