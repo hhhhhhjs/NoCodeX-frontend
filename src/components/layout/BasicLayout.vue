@@ -2,7 +2,7 @@
   <a-layout class="basic-layout">
     <!-- 顶部导航栏 -->
     <GlobalHeader />
-
+    <div class="w-full h-[20px] bg-gray-200 mt-1"></div>
     <!-- 主要内容区域 -->
     <a-layout-content class="main-content">
       <router-view />

@@ -6,7 +6,8 @@ export const useLoginUserStore = defineStore('loginUser', {
     loginUser: {
       userName: '未登录',
       id: '',
-      userAvatar: ''
+      userAvatar: '',
+      userRole: '',
     },
   }),
   getters: {},
@@ -17,7 +18,6 @@ export const useLoginUserStore = defineStore('loginUser', {
         const res = await getLoginUser()
         // 由于 axios 拦截器返回的是 data，所以 res 就是后端返回的数据
         if (res && (res as any).code === 0 && (res as any).data) {
-          console.log('看看登录的用户', res)
           this.loginUser = (res as any).data
         }
       } catch (error) {

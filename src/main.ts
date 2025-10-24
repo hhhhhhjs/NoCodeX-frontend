@@ -3,6 +3,7 @@ import './taildwind.css'
 import 'ant-design-vue/dist/reset.css'
 import Antd from 'ant-design-vue'
 import router from '@/router/index.ts'
+import '@/access/index.ts'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 

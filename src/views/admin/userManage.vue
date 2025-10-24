@@ -24,6 +24,9 @@
         <template v-if="column.dataIndex === 'userAvatar'">
           <a-image :src="record.userAvatar" :width="120" />
         </template>
+        <template v-else-if="column.dataIndex === 'userProfile'">
+          {{ record.userProfile ? record.userProfile : '暂无简介' }}
+        </template>
         <template v-else-if="column.dataIndex === 'userRole'">
           <div v-if="record.userRole === 'admin'">
             <a-tag color="green">管理员</a-tag>
