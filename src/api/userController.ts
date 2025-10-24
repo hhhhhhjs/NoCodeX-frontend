@@ -17,7 +17,7 @@ export const getLoginUser = async (options?: object): Promise<User> => {
   })
 }
 
-// 添加用户
+// 添加用户, 后端默认密码为 123456
 export const addUser = (options: addUserOptions): Promise<any> => {
   return request.post('user/add', {
     ...options,

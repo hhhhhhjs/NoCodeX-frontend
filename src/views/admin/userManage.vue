@@ -22,7 +22,7 @@
     >
       <template #bodyCell="{ column, record }">
         <template v-if="column.dataIndex === 'userAvatar'">
-          <a-image :src="record.userAvatar" :width="120" />
+          <a-image v-if="record.userAvatar" :src="record.userAvatar" :width="120" />
         </template>
         <template v-else-if="column.dataIndex === 'userProfile'">
           {{ record.userProfile ? record.userProfile : '暂无简介' }}

@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-  import { h, ref, computed, watch, onMounted } from 'vue'
+  import { h, ref, computed, watch } from 'vue'
   import { useRouter } from 'vue-router'
   import type { MenuProps } from 'ant-design-vue'
   import { useLoginUserStore } from '@/store/loginUser'
@@ -164,10 +164,6 @@
     },
     { immediate: true }
   )
-
-  onMounted(() => {
-    console.log(router)
-  })
 </script>
 
 <style scoped>
