@@ -1,5 +1,5 @@
 <template>
-  <div id="userRegisterPage">
+  <div id="register">
     <h2 class="title">NoCodeX - 用户注册</h2>
     <div class="desc">零代码，生成完整应用</div>
     <a-form :model="formState" name="basic" autocomplete="off" @finish="handleSubmit">
@@ -76,20 +76,21 @@
   const handleSubmit = async (values: UserRegisterRequest) => {
     const res = await userRegister(values)
     // 注册成功，跳转到登录页面
-    if (res.data.code === 0) {
+    console.log('看看res', res)
+    if (res.code === 0) {
       message.success('注册成功')
       router.push({
         path: '/user/login',
         replace: true,
       })
     } else {
-      message.error('注册失败，' + res.data.message)
+      message.error('注册失败，' + res.message)
     }
   }
 </script>
 
 <style scoped>
-  #userRegisterPage {
+  #register {
     max-width: 360px;
     margin: 0 auto;
   }

@@ -7,3 +7,9 @@ import { useLoginUserStore } from '@/store/loginUser'
 const loginUserStore = useLoginUserStore()
 loginUserStore.fetchLoginUser()
 </script>
+
+
+<style>
+
+
+</style>

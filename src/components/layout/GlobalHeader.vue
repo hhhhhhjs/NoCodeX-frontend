@@ -5,7 +5,7 @@
       <a-col flex="200px">
         <RouterLink to="/">
           <div class="flex items-center gap-3">
-            <img src="/logo.png" alt="logo" class="w-12 h-12">
+            <img src="/logo.png" alt="logo" class="w-12 h-12" />
             <h1 class="text-[#1890ff] text-[20px] m-0">NoCodeX</h1>
           </div>
         </RouterLink>
@@ -23,14 +23,24 @@
       <a-col>
         <div class="user-login-status">
           <div v-if="loginUserStore.loginUser.id">
-            <a-space>
-              <a-avatar :src="loginUserStore.loginUser.userAvatar" :size="60">
+            <a-dropdown>
+              <a-space>
+                <a-avatar :src="loginUserStore.loginUser.userAvatar" :size="50"/>
                 {{ loginUserStore.loginUser.userName ?? '神秘的用户' }}
-              </a-avatar>
-            </a-space>
+              </a-space>
+              <template #overlay>
+                <a-menu>
+                  <a-menu-item @click="doLogout">
+                    <LogoutOutlined />
+                    退出登录
+                  </a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
           </div>
+
           <div v-else>
-            <a-button type="primary">登录</a-button>
+            <a-button type="primary" @click="handleLogin">登录</a-button>
           </div>
         </div>
       </a-col>
@@ -39,55 +49,76 @@
 </template>
 
 <script setup lang="ts">
-import { h, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import type { MenuProps } from 'ant-design-vue'
-import { useLoginUserStore } from '@/store/loginUser'
-
-const loginUserStore = useLoginUserStore()
-console.log(loginUserStore)
-
-const router = useRouter()
-// 当前选中菜单
-const selectedKeys = ref<string[]>(['/'])
-// 监听路由变化，更新当前选中菜单
-router.afterEach((to, from, next) => {
-  selectedKeys.value = [to.path]
-})
-
-// 菜单配置项
-const menuItems = ref([
-  {
-    key: '/',
-    label: '首页',
-    title: '首页',
-  },
-  {
-    key: '/about',
-    label: '关于',
-    title: '关于我们',
-  },
-  {
-    key: '/others',
-    label: '其他',
-    title: '其他',
-  },
-])
-
-// 处理菜单点击
-const handleMenuClick: MenuProps['onClick'] = (e) => {
-  console.log('看看 key', e.key)
-  const key = e.key as string
-  selectedKeys.value = [key]
-  // 跳转到对应页面
-  if (key.startsWith('/')) {
-    router.push(key)
+  import { h, ref } from 'vue'
+  import { useRouter } from 'vue-router'
+  import type { MenuProps } from 'ant-design-vue'
+  import { useLoginUserStore } from '@/store/loginUser'
+  import { LogoutOutlined } from '@ant-design/icons-vue'
+  import { userLogout } from '@/api/userController'
+  import { message } from 'ant-design-vue'
+// 用户注销
+const doLogout = async () => {
+  const res = await userLogout()
+  if (res.code === 0) {
+    loginUserStore.setLoginUser({
+      userName: '未登录',
+    })
+    message.success('退出登录成功')
+    await router.push('/user/login')
+  } else {
+    message.error('退出登录失败，' + res.message)
   }
 }
+
+
+  const loginUserStore = useLoginUserStore()
+  console.log(loginUserStore)
+
+  const router = useRouter()
+  // 当前选中菜单
+  const selectedKeys = ref<string[]>(['/'])
+  // 监听路由变化，更新当前选中菜单
+  router.afterEach((to, from, next) => {
+    selectedKeys.value = [to.path]
+  })
+
+  // 菜单配置项
+  const menuItems = ref([
+    {
+      key: '/',
+      label: '首页',
+      title: '首页',
+    },
+    {
+      key: '/about',
+      label: '关于',
+      title: '关于我们',
+    },
+    {
+      key: '/others',
+      label: '其他',
+      title: '其他',
+    },
+  ])
+
+  // 处理菜单点击
+  const handleMenuClick: MenuProps['onClick'] = e => {
+    const key = e.key as string
+    selectedKeys.value = [key]
+    // 跳转到对应页面
+    if (key.startsWith('/')) {
+      router.push(key)
+    }
+  }
+
+  // 处理登录
+  const handleLogin = () => {
+    router.push('/user/login')
+  }
 </script>
 
 <style scoped>
-.ant-menu-horizontal {
-  border-bottom: none !important;
-}
+  .ant-menu-horizontal {
+    border-bottom: none !important;
+  }
 </style>

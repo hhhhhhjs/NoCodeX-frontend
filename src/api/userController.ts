@@ -25,14 +25,14 @@ export const addUser = (options: addUserOptions): Promise<any> => {
 }
 
 // 根据 id 删除用户
-export const deleteUser = (id: number): Promise<any> => {
+export const deleteUser = (id: string): Promise<any> => {
   return request.post('user/delete', {
     id,
   })
 }
 
 // 根据 id 查询用户
-export const getUserById = (id: number): Promise<User> => {
+export const getUserById = (id: string): Promise<User> => {
   return request.get('user/get', {
     params: {
       id,
@@ -41,7 +41,7 @@ export const getUserById = (id: number): Promise<User> => {
 }
 
 // 根据 id 查询用户
-export const getUserVoById = (id: number): Promise<User> => {
+export const getUserVoById = (id: string): Promise<User> => {
   return request.get('user/get/vo', {
     params: {
       id,
