@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '@/views/home.vue'
-import ACCESS_ENUM  from '@/access/accessEnum'
+import ACCESS_ENUM from '@/access/accessEnum'
 
 const routes = [
   {
@@ -21,10 +21,18 @@ const routes = [
       {
         path: '/admin/userManage',
         meta: {
-          access: ACCESS_ENUM.ADMIN
+          access: ACCESS_ENUM.ADMIN,
         },
         name: '用户管理',
         component: () => import('@/views/admin/userManage.vue'),
+      },
+      {
+        path: '/about',
+        name: '关于',
+        meta: {
+          access: ACCESS_ENUM.USER,
+        },
+        component: () => import('@/views/about.vue'),
       },
     ],
   },

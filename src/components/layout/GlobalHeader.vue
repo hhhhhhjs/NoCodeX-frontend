@@ -49,11 +49,16 @@
 </template>
 
 <script setup lang="ts">
-  import { h, ref, computed } from 'vue'
+  import { h, ref, computed, watch, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   import type { MenuProps } from 'ant-design-vue'
   import { useLoginUserStore } from '@/store/loginUser'
-  import { LogoutOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons-vue'
+  import {
+    LogoutOutlined,
+    HomeOutlined,
+    UserOutlined,
+    AliwangwangOutlined,
+  } from '@ant-design/icons-vue'
   import { userLogout } from '@/api/userController'
   import { message } from 'ant-design-vue'
   import checkAccess from '@/access/checkAccess'
@@ -90,7 +95,7 @@
   // 当前选中菜单
   const selectedKeys = ref<string[]>(['/'])
   // 监听路由变化，更新当前选中菜单
-  router.afterEach((to, from, next) => {
+  router.afterEach(to => {
     selectedKeys.value = [to.path]
   })
 
@@ -116,6 +121,13 @@
       icon: () => h(HomeOutlined),
       label: '主页',
       title: '主页',
+      access: ACCESS_ENUM.USER, // 不需要登录
+    },
+    {
+      key: '/about',
+      icon: () => h(AliwangwangOutlined),
+      label: '关于',
+      title: '关于',
       access: ACCESS_ENUM.NOT_LOGIN, // 不需要登录
     },
     {
@@ -143,6 +155,19 @@
 
   // 展示在菜单的路由数组（使用 computed 响应式更新）
   const menuItems = computed<MenuProps['items']>(() => filterMenus(originItems))
+
+  // 监听路由, 保证 a-menu 组件高亮正确
+  watch(
+    () => router.currentRoute.value.path,
+    (newMes) => {
+      selectedKeys.value[0] = newMes
+    },
+    { immediate: true }
+  )
+
+  onMounted(() => {
+    console.log(router)
+  })
 </script>
 
 <style scoped>

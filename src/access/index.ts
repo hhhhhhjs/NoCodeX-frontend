@@ -3,7 +3,7 @@ import { useLoginUserStore } from '@/store/loginUser'
 import ACCESS_ENUM from './accessEnum'
 import checkAccess from './checkAccess'
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _, next) => {
   const loginUserStore = useLoginUserStore()
   let loginUser = loginUserStore.loginUser
   // // 如果之前没登陆过，自动登录
